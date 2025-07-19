@@ -29,28 +29,11 @@ class _MySampleState extends State<MySample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            StreamBuilder(
-              stream: myStream,
-              builder: (context, snapshot) {
-                if(snapshot.hasData){
-                  return Text(
-                    snapshot.data.toString(),
-                    style: const TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
-                  );
-                }
-                else{
-                  return const Text(
-                    '0',
-                    style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
-                  );
-                }
-              }
-            ),
-            StreamBuilder(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              StreamBuilder(
                 stream: myStream,
                 builder: (context, snapshot) {
                   if(snapshot.hasData){
@@ -66,17 +49,34 @@ class _MySampleState extends State<MySample> {
                     );
                   }
                 }
-            ),
-          ],
+              ),
+              StreamBuilder(
+                  stream: myStream,
+                  builder: (context, snapshot) {
+                    if(snapshot.hasData){
+                      return Text(
+                        snapshot.data.toString(),
+                        style: const TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+                      );
+                    }
+                    else{
+                      return const Text(
+                        '0',
+                        style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+                      );
+                    }
+                  }
+              ),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          count++;
-          countController.sink.add(count);
-        },
-        child: const Icon(Icons.add),
-      ),
-    );
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            count++;
+            countController.sink.add(count);
+          },
+          child: const Icon(Icons.add),
+        ),
+      );
   }
 }
